@@ -3,6 +3,7 @@
 import argparse
 import json
 import os
+import sys
 
 from lib.lammps import get_last_dump
 from lib.utils import create_path, cvt_conf
@@ -105,9 +106,9 @@ def _main():
         help="the output folder for the job",
     )
 
-    parser_comp = subparsers.add_parser("extract", help="Extract the conf")
-    parser_comp.add_argument("JOB", type=str, help="folder of the job")
-    parser_comp.add_argument(
+    parser_extract = subparsers.add_parser("extract", help="Extract the conf")
+    parser_extract.add_argument("JOB", type=str, help="folder of the job")
+    parser_extract.add_argument(
         "-o", "--output", type=str, default="conf.lmp", help="output conf file name"
     )
 
@@ -126,7 +127,7 @@ def _main():
 
     if args.command is None:
         parser.print_help()
-        exit
+        sys.exit(1)
     if args.command == "gen":
         jdata = json.load(open(args.PARAM))
         make_task(args.output, jdata, args.pressure)

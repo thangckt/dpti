@@ -448,7 +448,7 @@ def _main():
 
     if args.command is None:
         parser.print_help()
-        exit
+        sys.exit(1)
     if args.command == "gen":
         jdata = json.load(open(args.PARAM))
         make_task(
